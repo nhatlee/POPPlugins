@@ -23,15 +23,11 @@ class DismissingAnimator: NSObject, UIViewControllerAnimatedTransitioning {
         
         
         var dimmingView: UIView?
-        let listSubview = transitionContext.containerView.subviews as NSArray
-        listSubview.enumerateObjects({(view, idx,stop) in
-            if let view = view as? UIView{
-                if view.layer.opacity < 1{
-                    dimmingView = view
-//                    stop = true
-                }
+        for (index, view) in transitionContext.containerView.subviews.enumerated(){
+            if view.layer.opacity < 1{
+                dimmingView = view
             }
-        })
+        }
         
         let opacityAnimation = POPBasicAnimation(propertyNamed: kPOPLayerOpacity)
         opacityAnimation?.toValue = 0
